@@ -1,0 +1,29 @@
+stacks: [playground]
+regions: [eu-west-1]
+templates:
+  gh-aws-microservice:
+    type: aws-lambda
+    app: gh-aws-microservice
+    contentDirectory: gh-aws-microservice
+    parameters:
+      bucket: gu-jr-microservice-workshop-dist
+      functionNames: [gh-aws-microservice-]
+      fileName: gh-aws-microservice.zip
+      prefixStack: false
+
+deployments:
+  jr-microservice-upload:
+    template: gh-aws-microservice
+    actions: [uploadLambda]
+  gh-aws-microservice-cfn:
+    type: cloud-formation
+    app: gh-aws-microservice
+    parameters:
+      prependStackToCloudFormationStackName: false
+      cloudFormationStackName: gh-aws-microservice
+      templatePath: cfn.yaml
+    dependencies: [jr-microservice-upload]
+  jr-microservice-lambda-update:
+    template: gh-aws-microservice
+    actions: [updateLambda]
+    dependencies: [gh-aws-microservice-cfn]
