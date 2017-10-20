@@ -15,3 +15,16 @@ deployments:
   gh-aws-microservice-upload:
     template: gh-aws-microservice
     actions: [uploadLambda]
+
+  gh-aws-microservice-cfn:
+    type: cloud-formation
+    app: gh-aws-microservice
+    parameters:
+      prependStackToCloudFormationStackName: false
+      cloudFormationStackName: gh-aws-microservice
+      templatePath: cfn.yaml
+    dependencies: [gh-aws-microservice-upload]
+  gh-aws-microservice-lambda-update:
+    template: gh-aws-microservice
+    actions: [updateLambda]
+    dependencies: [gh-aws-microservice-cfn]
