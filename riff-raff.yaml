@@ -12,7 +12,7 @@ templates:
       prefixStack: false
 
 deployments:
-  jr-microservice-upload:
+  gh-aws-microservice-cfn:
     template: gh-aws-microservice
     actions: [uploadLambda]
   gh-aws-microservice-cfn:
@@ -22,7 +22,7 @@ deployments:
       prependStackToCloudFormationStackName: false
       cloudFormationStackName: gh-aws-microservice
       templatePath: cfn.yaml
-    dependencies: [jr-microservice-upload]
+    dependencies: [gh-aws-microservice-cfn]
   jr-microservice-lambda-update:
     template: gh-aws-microservice
     actions: [updateLambda]
