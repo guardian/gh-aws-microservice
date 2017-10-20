@@ -11,7 +11,7 @@ templates:
       fileName:  gh-aws-microservice.zip
       prefixStack: false
 
-  deployments:
-    gh-aws-microservice-upload:
-      template: gh-aws-microservice
-      actions: [uploadLambda]
+deployments:
+  gh-aws-microservice-upload:
+    template: gh-aws-microservice
+    actions: [uploadLambda]
