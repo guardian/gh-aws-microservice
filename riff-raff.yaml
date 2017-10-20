@@ -8,22 +8,10 @@ templates:
     parameters:
       bucket: gu-jr-microservice-workshop-dist
       functionNames: [gh-aws-microservice-]
-      fileName: gh-aws-microservice.zip
+      fileName:  gh-aws-microservice.zip
       prefixStack: false
 
-deployments:
-  gh-aws-microservice-cfn:
-    template: gh-aws-microservice
-    actions: [uploadLambda]
-  gh-aws-microservice-cfn:
-    type: cloud-formation
-    app: gh-aws-microservice
-    parameters:
-      prependStackToCloudFormationStackName: false
-      cloudFormationStackName: gh-aws-microservice
-      templatePath: cfn.yaml
-    dependencies: [gh-aws-microservice-cfn]
-  jr-microservice-lambda-update:
-    template: gh-aws-microservice
-    actions: [updateLambda]
-    dependencies: [gh-aws-microservice-cfn]
+  deployments:
+    gh-aws-microservice-upload:
+      template: gh-aws-microservice
+      actions: [uploadLambda]
